@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🕸️ Wednesday's Cursed Verbs 🕷️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #1f1f1f;
+    color: #f3e5f5;
+    text-align: center;
+    padding: 30px;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #bb86fc;
+    text-shadow: 0 0 10px #bb86fc;
+    font-size: 3em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #bb86fc;
+    padding-bottom: 10px;
+  }
+
+  .instructions {
+    background: #2c2c2c;
+    border: 2px solid #bb86fc;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+
+  .alibi-box {
+    background: #2c2c2c;
+    border: 2px solid #bb86fc;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 30px auto;
+    max-width: 900px;
+    box-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+  }
+
+  input.verb-input {
+    width: 120px;
+    padding: 10px;
+    margin: 8px;
+    background: #ffffff;
+    border: 2px solid #bb86fc;
+    color: #1f1f1f;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1em;
+    transition: 0.3s;
+  }
+
+  input.verb-input:focus {
+    outline: none;
+    box-shadow: 0 0 8px #bb86fc;
+    background: #f5f5f5;
+  }
+
+  input.correct {
+    background: #c8e6c9;
+    border-color: #4caf50;
+    color: #1b5e20;
+  }
+
+  input.incorrect {
+    background: #ffcdd2;
+    border-color: #e53935;
+    color: #b71c1c;
+    animation: shake 0.4s;
+  }
+
+  #timer {
+    font-size: 2em;
+    color: #bb86fc;
+    margin: 20px 0;
+    text-shadow: 0 0 8px #bb86fc;
+  }
+
+  button {
+    background: #7e57c2;
+    color: white;
+    padding: 12px 24px;
+    margin: 15px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 8px #9575cd;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #9575cd;
+    transform: scale(1.05);
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+</style>
+</head>
+<body>
+
+<h1>🕸️ Wednesday's Cursed Verbs 🕷️</h1>
+
+<div class="instructions">
+  Wednesday's verbs have been cursed by dark magic!<br>
+  Can you break the spell by fixing the past tense verbs before time runs out?
+</div>
+
+<div id="timer">04:00</div>
+
+<div class="alibi-box">
+  <p>Last night, I <input class="verb-input" id="v1" placeholder="see"> a raven watching me through the attic window. I 
+  <input class="verb-input" id="v2" placeholder="open"> a secret passage behind the bookshelf and 
+  <input class="verb-input" id="v3" placeholder="writed"> a poem in red ink.<br>
+  I <input class="verb-input" id="v4" placeholder="walk"> through the dark hallway, 
+  <input class="verb-input" id="v5" placeholder="watch"> the shadows on the walls, and 
+  <input class="verb-input" id="v6" placeholder="maked"> pancakes with poison ivy.<br>
+  Then I <input class="verb-input" id="v7" placeholder="play"> with my pet spider and 
+  <input class="verb-input" id="v8" placeholder="sleeped"> in my coffin.<br>
+  Before midnight, I <input class="verb-input" id="v9" placeholder="leaved"> a cursed tarot card under Lady Violet’s door… and vanished into the shadows.<br>
+  I <input class="verb-input" id="v10" placeholder="do"> nothing wrong!</p>
+</div>
+
+<button onclick="checkVerbs()">Break the Curse</button>
+<button onclick="resetInputs()">Start Over</button>
+
+<script>
+const answers = {
+  v1: "saw",
+  v2: "opened",
+  v3: "wrote",
+  v4: "walked",
+  v5: "watched",
+  v6: "made",
+  v7: "played",
+  v8: "slept",
+  v9: "left",
+  v10: "did"
+};
+
+let timeLeft = 240;
+const timerElement = document.getElementById('timer');
+let timer;
+
+function startTimer() {
+  timer = setInterval(() => {
+    timeLeft--;
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      alert("⌛ Time's up! The curse remains...");
+    }
+  }, 1000);
+}
+
+function checkVerbs() {
+  let score = 0;
+  Object.keys(answers).forEach(id => {
+    const input = document.getElementById(id);
+    if (input.value.trim().toLowerCase() === answers[id]) {
+      input.classList.add("correct");
+      input.classList.remove("incorrect");
+      score++;
+    } else {
+      input.classList.add("incorrect");
+      input.classList.remove("correct");
+    }
+  });
+
+  if (score === 10) {
+    clearInterval(timer);
+    alert("💀 Curse broken! The shadows retreat...");
+  }
+}
+
+function resetInputs() {
+  clearInterval(timer);
+  timeLeft = 240;
+  timerElement.textContent = '04:00';
+  document.querySelectorAll('.verb-input').forEach(input => {
+    input.value = '';
+    input.classList.remove("correct", "incorrect");
+  });
+  startTimer();
+}
+
+startTimer();
+</script>
+
+</body>
+</html>
